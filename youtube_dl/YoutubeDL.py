@@ -95,7 +95,7 @@ from .utils import (
     YoutubeDLRedirectHandler,
 )
 from .cache import Cache
-from .extractor import get_info_extractor, gen_extractor_classes, _LAZY_LOADER
+from .extractor import get_info_extractor, gen_extractor_classes, _LAZY_LOADER, gen_extractors
 from .extractor.openload import PhantomJSwrapper
 from .downloader import get_suitable_downloader
 from .downloader.rtmp import rtmpdump_version
@@ -2417,3 +2417,9 @@ class YoutubeDL(object):
                 except (compat_urllib_error.URLError, compat_http_client.HTTPException, socket.error) as err:
                     self.report_warning('Unable to download thumbnail "%s": %s' %
                                         (t['url'], error_to_compat_str(err)))
+    def get_extractor(self, urls):
+        ies = gen_extractors()
+        for url in urls:
+            for ie in ies:
+                if ie.suitable(url) and ie.IE_NAME != 'generic':
+                    self.to_stdout(ie.IE_NAME)

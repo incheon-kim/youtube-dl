@@ -127,7 +127,12 @@ def parseOpts(overrideArguments=None):
     }
 
     parser = optparse.OptionParser(**compat_kwargs(kw))
-
+    special = optparse.OptionGroup(parser, 'Special Options')
+    special.add_option(
+        '-E', '--GetExtractor',
+        action='store_true', dest='getextractor',
+        help='Print Extractor for given URL'
+    )
     general = optparse.OptionGroup(parser, 'General Options')
     general.add_option(
         '-h', '--help',

@@ -337,6 +337,7 @@ def _real_main(argv=None):
         'dump_single_json': opts.dump_single_json,
         'simulate': opts.simulate or any_getting,
         'skip_download': opts.skip_download,
+        'get_extractor' : opts.getextractor,
         'format': opts.format,
         'listformats': opts.listformats,
         'outtmpl': outtmpl,
@@ -456,6 +457,11 @@ def _real_main(argv=None):
             parser.error(
                 'You must provide at least one URL.\n'
                 'Type youtube-dl --help to see a list of all options.')
+        
+        # Print Extractor then exit app
+        if opts.getextractor:
+            ydl.get_extractor(all_urls)
+            sys.exit(1)
 
         try:
             if opts.load_info_filename is not None:
