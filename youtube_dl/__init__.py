@@ -461,7 +461,7 @@ def _real_main(argv=None):
         # Print Extractor then exit app
         if opts.getextractor:
             ydl.get_extractor(all_urls)
-            sys.exit(1)
+            sys.exit(0)
 
         try:
             if opts.load_info_filename is not None:
